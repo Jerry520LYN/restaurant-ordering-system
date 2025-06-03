@@ -8,7 +8,7 @@
         <slot />
       </main>
       <footer>
-        <p>© 2023 餐厅点餐系统. 保留所有权利.</p>
+        <p>Jerry的餐厅点餐系统</p>
       </footer>
     </div>
   </div>

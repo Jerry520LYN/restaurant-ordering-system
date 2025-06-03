@@ -49,13 +49,16 @@ const error = ref(null)
 
 const handleSubmit = async () => {
   error.value = null
-  const success = await authStore.login(form.value)
-  if (success) {
-    router.push('/dashboard') // 登录成功后跳转到仪表盘
-  } else {
-    error.value = authStore.error
+  try{
+    await authStore.login(form.value);
+    alert('成功');
+    router.push('/dashboard');
+  }catch(err){
+    error.value = err;
   }
 }
+
+
 </script>
 
 <style scoped>

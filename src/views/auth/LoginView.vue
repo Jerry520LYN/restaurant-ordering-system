@@ -2,11 +2,6 @@
   <AuthLayout>
     <h2>用户登录</h2>
     <LoginForm />
-    <div class="auth-links">
-      <router-link to="/forgot-password">忘记密码?</router-link>
-      <span> | </span>
-      <router-link to="/register">注册账号</router-link>
-    </div>
   </AuthLayout>
 </template>
 
