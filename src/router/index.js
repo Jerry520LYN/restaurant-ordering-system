@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '@/views/auth/LoginView.vue'
+import RegisterView from '@/views/auth/RegisterView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import { useAuthStore } from '@/stores/auth'
 
@@ -9,6 +10,12 @@ const routes = [
     path: '/',
     name: 'login',
     component: LoginView,
+    meta: { layout: 'empty', requiresGuest: true }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: RegisterView,
     meta: { layout: 'empty', requiresGuest: true }
   },
   {

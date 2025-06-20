@@ -26,9 +26,16 @@
       {{ error }}
     </div>
 
+  <div class="button-container">
     <button type="submit" :disabled="isLoading">
       {{ isLoading ? '登录中...' : '登录' }}
     </button>
+
+    <button type="button" @click="goRegister">
+      注册
+    </button>
+  </div>
+    
   </form>
 </template>
 
@@ -36,6 +43,7 @@
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -50,12 +58,20 @@ const error = ref(null)
 const handleSubmit = async () => {
   error.value = null
   try{
-    await authStore.login(form.value);
-    alert('成功');
+    const result = await authStore.login(form.value);
+    if(result){
+    ElMessage.success("登录成功");
     router.push('/dashboard');
+    }else{
+      ElMessage.error("登录失败,请检查账号或者密码");
+    }
   }catch(err){
     error.value = err;
   }
+}
+
+const goRegister = () => {
+  router.push('/register')
 }
 
 
@@ -78,6 +94,7 @@ input {
   border-radius: 4px;
 }
 
+
 button {
   background-color: #42b983;
   color: white;
@@ -85,11 +102,18 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  display: inline-block;
 }
 
 button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .error-message {

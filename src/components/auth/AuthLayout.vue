@@ -8,7 +8,7 @@
         <slot />
       </main>
       <footer>
-        <p>Jerry的餐厅点餐系统</p>
+        <p>-----Jerry的餐厅点餐系统-----</p>
       </footer>
     </div>
   </div>
@@ -30,6 +30,7 @@
   background: white;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
 header {
@@ -39,6 +40,7 @@ header {
 
 h1 {
   color: #42b983;
+  font-size: 2rem;
 }
 
 footer {
