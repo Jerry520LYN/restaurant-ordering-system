@@ -3,7 +3,7 @@ import LoginView from '@/views/auth/LoginView.vue'
 import RegisterView from '@/views/auth/RegisterView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import { useAuthStore } from '@/stores/auth'
-
+import MenuView from '@/views/MenuView.vue'
 const routes = [
   
   {
@@ -22,7 +22,15 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: DashboardView,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: 'menu',
+        name: 'menu',
+        component: MenuView,
+        meta: { requiresAuth: true }
+      }
+    ]
   }
 ]
 

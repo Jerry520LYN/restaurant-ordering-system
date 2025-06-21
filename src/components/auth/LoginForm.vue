@@ -1,41 +1,50 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <div class="form-group">
-      <label for="username">用户名</label>
+    <div class="mb-4">
+      <label for="username" class="block mb-2">用户名</label>
       <input
         id="username"
         v-model="form.username"
         type="text"
         required
         placeholder="请输入用户名"
+        class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </div>
 
-    <div class="form-group">
-      <label for="password">密码</label>
+    <div class="mb-4">
+      <label for="password" class="block mb-2">密码</label>
       <input
         id="password"
         v-model="form.password"
         type="password"
         required
         placeholder="请输入密码"
+        class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </div>
 
-    <div v-if="error" class="error-message">
+    <div v-if="error" class="text-red-500 mb-4">
       {{ error }}
     </div>
 
-  <div class="button-container">
-    <button type="submit" :disabled="isLoading">
-      {{ isLoading ? '登录中...' : '登录' }}
-    </button>
+    <div class="flex justify-center gap-4">
+      <button 
+        type="submit" 
+        :disabled="isLoading"
+        class="bg-green-500 hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded-md cursor-pointer"
+      >
+        {{ isLoading ? '登录中...' : '登录' }}
+      </button>
 
-    <button type="button" @click="goRegister">
-      注册
-    </button>
-  </div>
-    
+      <button 
+        type="button" 
+        @click="goRegister"
+        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md cursor-pointer"
+      >
+        注册
+      </button>
+    </div>
   </form>
 </template>
 
@@ -73,51 +82,4 @@ const handleSubmit = async () => {
 const goRegister = () => {
   router.push('/register')
 }
-
-
 </script>
-
-<style scoped>
-.form-group {
-  margin-bottom: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-
-button {
-  background-color: #42b983;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  display: inline-block;
-}
-
-button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.error-message {
-  color: red;
-  margin-bottom: 1rem;
-}
-</style>

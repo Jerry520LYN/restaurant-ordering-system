@@ -12,7 +12,7 @@ export const login = async (credentials) => {
       params: credentials // 自动处理参数编码
     });
 
-    return response.data;
+    return response;
   } catch (error) {
     throw error.response?.data?.message || '登录失败，请稍后再试';
   }
@@ -27,7 +27,7 @@ export const register = async (data) => {
     const response = await instance.post('/users/register', null, {
       params: data
     });
-    return response.data;
+    return response;
   } catch (error) {
     throw error.response?.data?.message || '注册失败，请稍后再试';
   }

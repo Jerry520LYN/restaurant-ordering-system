@@ -12,12 +12,17 @@ export const useAuthStore = defineStore('auth',{
   actions:{
     async login(credentials){
       try{
+        console.log('开始登录，凭证:', credentials);
         const result = await login(credentials);
+        console.log('登录API返回结果:', result);
         this.token = result;
         this.isAuthenticated = true;
         this.error = null;
+        console.log('Token已保存到store:', this.token);
+        console.log('认证状态:', this.isAuthenticated);
         return true;
       }catch(error){ 
+        console.error('登录失败:', error);
         this.isAuthenticated = false;
         this.token = null;
         this.error = error;

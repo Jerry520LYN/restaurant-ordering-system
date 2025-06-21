@@ -1,5 +1,5 @@
 {
-  "name": "restaurant-ordering-system",
+  "name": "tailwindcss",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,11 +8,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.9.0",
     "core-js": "^3.8.3",
     "element-plus": "^2.10.2",
     "pinia": "^3.0.2",
-    "tailwindcss": "4.1.10",
+    "tailwindcss": "3.4.17",
     "vue": "^3.2.13",
     "vue-router": "4"
   },
@@ -47,5 +48,9 @@
     "not dead",
     "not ie 11"
   ],
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "main": "index.js",
+  "repository": "git@github.com:Jerry520LYN/restaurant-ordering-system.git",
+  "author": "又菜又爱玩 <19166910919@163.com>",
+  "license": "MIT"
 }
