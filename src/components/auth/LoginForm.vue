@@ -31,10 +31,9 @@
     <div class="flex justify-center gap-4">
       <button 
         type="submit" 
-        :disabled="isLoading"
         class="bg-green-500 hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded-md cursor-pointer"
       >
-        {{ isLoading ? '登录中...' : '登录' }}
+        登录
       </button>
 
       <button 

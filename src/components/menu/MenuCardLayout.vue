@@ -23,18 +23,12 @@
             </div>
         </div>
         
-        <!-- 加载状态 -->
-        <div v-if="menuStore.loading" class="loading-container">
-            <el-loading :fullscreen="false" />
-        </div>
-        
-        <!-- 错误信息 -->
         <div v-if="menuStore.error" class="error-message">
             <el-alert :title="menuStore.error" type="error" show-icon />
         </div>
         
         <!-- 菜单卡片列表 -->
-        <el-row v-if="!menuStore.loading && !menuStore.error" :gutter="20">
+        <el-row v-if="!menuStore.error" :gutter="20">
             <el-col 
                 v-for="dish in (menuStore.hotDishes || []).slice(0, 4)" 
                 :key="dish.dish_id" 
@@ -49,7 +43,7 @@
         </el-row>
         
         <!-- 无数据提示 -->
-        <div v-if="!menuStore.loading && !menuStore.error && (!menuStore.hotDishes || menuStore.hotDishes.length === 0)" class="no-data">
+        <div v-if="!menuStore.error && (!menuStore.hotDishes || menuStore.hotDishes.length === 0)">
             <el-empty description="暂无热品推荐数据" />
         </div>
     </div>
@@ -57,7 +51,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { ElMessage, ElLoading } from 'element-plus';
+import { ElMessage} from 'element-plus';
 import MenuCard from './MenuCard.vue';
 import { useMenuStore } from '@/stores/menu';
 
@@ -131,13 +125,6 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 200px;
 }
 
 .error-message {

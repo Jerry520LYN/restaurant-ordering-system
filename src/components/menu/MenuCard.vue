@@ -1,12 +1,12 @@
 <template>
     <el-row>
         <el-col>
-            <el-card class="menu-card" style="width: 350px; height: 350px;">
+            <el-card class="menu-card" style="width: 350px; height: 530px;">
                 <img 
                     :src="dish.imageUrl || dish.image_url || 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200&h=150&fit=crop'" 
                     :alt="dish.dish_name || dish.dishName || dish.name || '菜品名称'" 
                     class="menu-image" 
-                    style="width: 100%; height: 200px; object-fit: cover;"
+                    style="width: 100%; height: 400px; object-fit: cover;"
                     @error="handleImageError"
                     @load="handleImageLoad"
                 >
@@ -14,9 +14,9 @@
                     <span class="dish-name" style="font-size: 14px; font-weight: bold;">
                         {{ dish.dish_name || dish.dishName || dish.name || '菜品名称' }}
                     </span>
-                    <span class="dish-description" style="font-size: 12px; color: #666;">
+                    <div class="dish-description" style="font-size: 12px; color: #666;">
                         {{ dish.description || '菜品描述' }}
-                    </span>
+                    </div>
                     <div class="dish-info" style="margin-top: 8px;">
                         <span v-if="dish.price" style="font-size: 16px; color: #e74c3c; font-weight: bold;">
                             ¥{{ dish.price }}

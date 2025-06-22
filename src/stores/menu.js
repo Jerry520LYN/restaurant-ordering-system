@@ -1,17 +1,15 @@
 import { defineStore } from 'pinia';
-import { getMenuList, getHotDishes } from '@/api/menu';
+import { getMenuList, getHotDishes, deleteDish as deleteDishApi, addDish } from '@/api/menu';
 import { useAuthStore } from './auth';
-
+import { updateDish } from '@/api/menu';
 export const useMenuStore = defineStore('menu', {
     state: () => ({
         menuList: [],
         hotDishes: [],
-        loading: false,
         error: null
     }),
     actions: {
         async fetchMenuList() {
-            this.loading = true;
             try {
                 const response = await getMenuList();
                 console.log('fetchMenuList - 获取到的result:', response);
@@ -19,12 +17,9 @@ export const useMenuStore = defineStore('menu', {
             } catch (error) {
                 console.error('fetchMenuList - 错误:', error);
                 this.error = error;
-            } finally {
-                this.loading = false;
             }
         },
         async fetchHotDishes(startTime, endTime) {
-            this.loading = true;
             this.error = null;
             try {
                 const authStore = useAuthStore();
@@ -51,8 +46,40 @@ export const useMenuStore = defineStore('menu', {
                 console.error('fetchHotDishes - 错误:', error);
                 this.error = error;
                 this.hotDishes = [];
-            } finally {
-                this.loading = false;
+            }
+        },
+        async deleteDish(dishId) {
+            this.error = null;
+            try {
+                await deleteDishApi(dishId);
+                // 可选：从menuList中移除已删除的项，以避免重新获取整个列表
+                this.menuList = this.menuList.filter(dish => dish.dishId !== dishId);
+            } catch (error) {
+                console.error('deleteDish - 错误:', error);
+                this.error = error;
+                throw error; // 将错误向上抛出，以便组件可以捕获它
+            }
+        },
+        async addDish(dishData) {
+            this.error = null;
+            try {
+                const newDish = await addDish(dishData);
+                this.menuList.push(newDish);
+            } catch (error) {
+                console.error('addDish - 错误:', error);
+                this.error = error;
+                throw error;
+            }
+        },
+        async updateDish(dishData) {
+            this.error = null;
+            try {
+                const updatedDish = await updateDish(dishData);
+                this.menuList = this.menuList.map(dish => dish.dishId === dishData.dishId ? updatedDish : dish);
+            } catch (error) {
+                console.error('updateDish - 错误:', error);
+                this.error = error;
+                throw error;
             }
         }
     }

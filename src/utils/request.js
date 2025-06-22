@@ -12,6 +12,7 @@ instance.interceptors.request.use(
     (config) => {
         const authStore = useAuthStore();
         console.log('请求拦截器 - 当前token:', authStore.token);
+        console.log('请求拦截器 - 请求URL:', `${config.baseURL}${config.url}`);
         if (authStore.token) {
             config.headers.Authorization = `Bearer ${authStore.token}`;
             console.log('已添加Authorization头:', config.headers.Authorization);
@@ -28,6 +29,7 @@ instance.interceptors.request.use(
 // 响应拦截器
 instance.interceptors.response.use(
     (response) =>{
+        console.log('Requesting URL:', `${response.config.baseURL}${response.config.url}`);
         console.log('响应拦截器 - 原始响应:', response);
         console.log('响应拦截器 - response.data:', response.data);
         
