@@ -79,3 +79,26 @@ export const updateDish = async (dishData) => {
         throw error.response?.data?.message || '更新菜品失败';
     }
 }   
+
+export const addDish = async (dishData) => {
+    try {
+        const authStore = useAuthStore();
+        const token = authStore.token;
+        
+        const params = {
+            authenticity: token,
+            dishId: dishData.dishId,
+            dishName: dishData.dishName,
+            price: dishData.price,
+            description: dishData.description,
+            imageUrl: dishData.imageUrl
+        };
+        const response = await instance.post('/menus/addMenu', null, { 
+            params
+        });
+        return response;
+    } catch (error) {
+        throw error.response?.data?.message || '添加菜品失败';
+    }
+}   
+

@@ -95,6 +95,9 @@
     <el-dialog v-model="updateDialogVisible" title="更新菜品" width="500px" @closed="handleDialogClose">
         <MenuUpdateCard v-if="currentDish" :dish="currentDish" @update-success="handleUpdateSuccess" @close="updateDialogVisible = false" />
     </el-dialog>
+    <el-dialog v-model="addDialogVisible" title="添加菜品" width="500px" @closed="handleDialogClose">
+      <MenuAddCard v-if="addDishForm" :dish="addDishForm" @add-success="handleAddSuccess" @close="addDialogVisible = false" />
+    </el-dialog>
   </div>
 </template>
 
@@ -103,18 +106,21 @@ import { useMenuStore } from '@/stores/menu'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Picture } from '@element-plus/icons-vue'
 import MenuUpdateCard from './MenuUpdateCard.vue'
-
+import MenuAddCard from './MenuAddCard.vue'
 export default {
   name: 'MenuForm',
   components: {
     Picture,
-    MenuUpdateCard
+    MenuUpdateCard,
+    MenuAddCard
   },
   data() {
     return {
       menuData: [],
       updateDialogVisible: false,
-      currentDish: null
+      currentDish: null,
+      addDialogVisible: false,
+      addDishForm: null
     }
   },
   mounted() {
@@ -184,8 +190,21 @@ export default {
     },
 
     addDish() {
-        // 暂时显示提示，后续可以添加添加菜品的对话框
-        ElMessage.info('添加菜品功能正在开发中...');
+        this.addDishForm = {
+            dishId: '',
+            dishName: '',
+            price: '',
+            description: '',
+            imageUrl: ''
+        };
+        this.addDialogVisible = true;
+    },
+
+    handleAddSuccess() {
+        this.addDialogVisible = false;
+        this.getMenuList();
+        ElMessage.success('菜品添加成功');
+        this.addDishForm = null;
     }
   }
 }
