@@ -4,6 +4,7 @@ import RegisterView from '@/views/auth/RegisterView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import { useAuthStore } from '@/stores/auth'
 import MenuView from '@/views/MenuView.vue'
+import CustomerView from '@/views/CustomerView.vue'
 const routes = [
   
   {
@@ -28,6 +29,12 @@ const routes = [
         path: 'menu',
         name: 'menu',
         component: MenuView,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'customers',
+        name: 'customers',
+        component: CustomerView,
         meta: { requiresAuth: true }
       }
     ]
