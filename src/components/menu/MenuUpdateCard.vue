@@ -20,10 +20,9 @@
 </template>
 
 <script setup>
-import { ref, watch, defineProps, defineEmits, onUnmounted } from 'vue';
+import { ref, watch, defineProps, defineEmits } from 'vue';
 import { useMenuStore } from '@/stores/menu';
 import { ElMessage } from 'element-plus';
-import { debounce } from 'lodash-es'; // Or implement your own debounce
 
 const props = defineProps({
     dish: {
@@ -34,7 +33,6 @@ const props = defineProps({
 
 const emit = defineEmits(['update-success', 'close']);
 
-// Form structure remains the same
 const form = ref({
     dishId: '',
     dishName: '',
@@ -43,42 +41,10 @@ const form = ref({
     imageUrl: ''
 });
 
-// Real-time changes tracking
-const dirtyFields = ref(new Set());
-
-// Watch individual fields for changes
-const trackChanges = (field) => {
-    watch(() => form.value[field], () => {
-        dirtyFields.value.add(field);
-    }, { deep: true });
-};
-
-['dishName', 'price', 'description', 'imageUrl'].forEach(trackChanges);
-
-// Debounced save function
-const saveField = debounce(async (field) => {
-    if (!dirtyFields.value.has(field)) return;
-    
-    try {
-        const payload = {
-            dishId: form.value.dishId,
-            [field]: form.value[field]
-        };
-        
-        const menuStore = useMenuStore();
-        await menuStore.partialUpdate(payload); // You'll need to implement this in your store
-        dirtyFields.value.delete(field);
-        ElMessage.success(`${field} updated`);
-    } catch (error) {
-        ElMessage.error(`${field} update failed: ${error.message}`);
-    }
-}, 1000);
-
-// Original submit handler (unchanged)
 const handleSubmit = async () => {
     try {
         const menuStore = useMenuStore();
-        await menuStore.updateDish(form.value); // Uses the existing endpoint
+        await menuStore.updateDish(form.value);
         ElMessage.success('Full update successful');
         emit('update-success');
     } catch (error) {
@@ -86,7 +52,6 @@ const handleSubmit = async () => {
     }
 };
 
-// Cancel handler remains unchanged
 const handleCancel = () => {
     emit('close');
 };
@@ -101,12 +66,7 @@ watch(() => props.dish, (newDish) => {
             description: newDish.description || '',
             imageUrl: newDish.imageUrl || newDish.image_url || ''
         };
-        dirtyFields.value.clear();
     }
 }, { immediate: true, deep: true });
 
-// Cleanup
-onUnmounted(() => {
-    saveField.cancel();
-});
 </script>
