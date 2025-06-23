@@ -1,7 +1,7 @@
 <template>
     <MenuLayout>
         <template #hot-dishes-container>
-            <div class="mb-8">
+            <div>
                 <MenuCardLayout/>
             </div>
         </template>

@@ -44,7 +44,7 @@
                 <span>订单管理</span>
               </template>
               <el-menu-item index="/dashboard/orders">所有订单</el-menu-item>
-              <el-menu-item index="/dashboard/orders/new">新建订单</el-menu-item>
+              <el-menu-item index="/dashboard/create-order">创建订单</el-menu-item>
             </el-sub-menu>
             
             <!-- 菜品管理 -->
@@ -57,6 +57,18 @@
             <el-menu-item index="/dashboard/customers">
               <el-icon class="mr-2 text-lg"><user-filled /></el-icon>
               <span>用户管理</span>
+            </el-menu-item>
+            
+            <!-- 餐桌管理 -->
+            <el-menu-item index="/dashboard/tables">
+              <el-icon class="mr-2 text-lg"><grid /></el-icon>
+              <span>餐桌管理</span>
+            </el-menu-item>
+            
+            <!-- 叫号服务 -->
+            <el-menu-item index="/dashboard/calling-number">
+              <el-icon class="mr-2 text-lg"><bell /></el-icon>
+              <span>叫号服务</span>
             </el-menu-item>
             
             <!-- 系统设置 -->

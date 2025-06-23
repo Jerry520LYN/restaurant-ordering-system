@@ -5,6 +5,10 @@ import DashboardView from '@/views/DashboardView.vue'
 import { useAuthStore } from '@/stores/auth'
 import MenuView from '@/views/MenuView.vue'
 import CustomerView from '@/views/CustomerView.vue'
+import TableManagementView from '@/views/TableManagementView.vue'
+import OrderManagementView from '@/views/OrderManagementView.vue'
+import CallingNumberView from '@/views/CallingNumberView.vue'
+import CreateOrderView from '@/views/CreateOrderView.vue'
 const routes = [
   
   {
@@ -35,6 +39,30 @@ const routes = [
         path: 'customers',
         name: 'customers',
         component: CustomerView,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'tables',
+        name: 'tables',
+        component: TableManagementView,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'orders',
+        name: 'orders',
+        component: OrderManagementView,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'calling-number',
+        name: 'calling-number',
+        component: CallingNumberView,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'create-order',
+        name: 'create-order',
+        component: CreateOrderView,
         meta: { requiresAuth: true }
       }
     ]

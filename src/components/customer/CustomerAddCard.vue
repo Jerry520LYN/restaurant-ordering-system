@@ -2,7 +2,7 @@
     <el-card>
         <el-form :model="customerForm" label-width="120px">
             <el-form-item label="用户类型">
-                <el-select v-model="customerForm.vipLevel" placeholder="请选择用户类型" @change="handleVipChange">
+                <el-select placeholder="请选择用户类型" @change="handleVipChange">
                     <el-option v-for="level in vipLevels" :key="level.value" :label="level.label" :value="level.value" />
                 </el-select>
             </el-form-item>
@@ -26,7 +26,7 @@
 import { useCustomerStore } from '@/stores/customer';
 import { ref, defineEmits } from 'vue';
 const customerStore = useCustomerStore();
-const customerForm = ref({ id: '', vipLevel: '' });
+const customerForm = ref({ id: ''});
 
 const vipLevels = [
     { label: '普通用户', value: '0' },
@@ -41,12 +41,13 @@ const emit = defineEmits(['close', 'add-success']);
 
 const handleVipChange = (val) => {
     // 生成A+8位数字的ID
+   
     const randomNum = Math.floor(10000000 + Math.random() * 90000000); // 8位
     customerForm.value.id = val + randomNum.toString();
 };
 
 const handleAdd = async () => {
-    if (!customerForm.value.name || !customerForm.value.phone || !customerForm.value.vipLevel) {
+    if (!customerForm.value.name || !customerForm.value.phone) {
         alert('请填写完整信息');
         return;
     }
