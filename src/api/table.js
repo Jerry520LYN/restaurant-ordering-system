@@ -1,48 +1,42 @@
-import request from '@/utils/request';
-
+import { useAuthStore } from '@/stores/auth';
+import instance from '@/utils/request';
 // 获取所有餐桌
-export function getTableList() {
-  return request({
-    url: '/tables/all',
-    method: 'get',
-    params: { authenticity: localStorage.getItem('token') }
+
+export async function getTableList() {
+  const authStore = useAuthStore();
+  const token = authStore.token;
+  const response = await instance.get('/tables/all', {
+    params: {
+      authenticity: token
+    }
   });
+  return response;
 }
 
 // 添加餐桌
-export function addTable({ tableStatus, capacity }) {
-  return request({
-    url: '/tables/add',
-    method: 'post',
-    params: {
-      authenticity: localStorage.getItem('token'),
-      tableStatus,
-      capacity
-    }
+export async function addTable({ tableStatus, capacity }) {
+  const authStore = useAuthStore();
+  const token = authStore.token;
+  const params = {
+    authenticity: token,
+    tableStatus,
+    capacity
+  }
+  const response = await instance.post('/tables/add', null, {
+    params
   });
-}
-
-// 更新餐桌状态
-export function updateTableStatus({ tableId, tableStatus }) {
-  return request({
-    url: '/tables/updateStatus',
-    method: 'post',
-    params: {
-      authenticity: localStorage.getItem('token'),
-      tableId,
-      tableStatus
-    }
-  });
+  return response;
 }
 
 // 删除餐桌
-export function deleteTableById(tableId) {
-  return request({
-    url: '/tables/delete',
-    method: 'delete',
+export async function deleteTableById(tableId) {
+  const authStore = useAuthStore();
+  const token = authStore.token;
+  const response = await instance.delete('/tables/delete', {
     params: {
-      authenticity: localStorage.getItem('token'),
+      authenticity: token,
       tableId
     }
   });
+  return response;
 }

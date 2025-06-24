@@ -71,11 +71,6 @@
               <span>叫号服务</span>
             </el-menu-item>
             
-            <!-- 系统设置 -->
-            <el-menu-item index="/dashboard/settings">
-              <el-icon class="mr-2 text-lg"><setting /></el-icon>
-              <span>系统设置</span>
-            </el-menu-item>
           </el-menu>
         </el-aside>
 
