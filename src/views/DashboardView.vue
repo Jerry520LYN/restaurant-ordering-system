@@ -37,16 +37,16 @@
               <span>首页</span>
             </el-menu-item>
             
-            <!-- 订单管理 -->
-            <el-sub-menu index="2">
-              <template #title>
-                <el-icon class="mr-2 text-lg"><document /></el-icon>
-                <span>订单管理</span>
-              </template>
-              <el-menu-item index="/dashboard/orders">所有订单</el-menu-item>
-              <el-menu-item index="/dashboard/create-order">创建订单</el-menu-item>
-            </el-sub-menu>
             
+            <el-menu-item index="/dashboard/orders">
+              <el-icon class="mr-2 text-lg"><document /></el-icon>
+              <span>订单信息管理</span>
+            </el-menu-item>
+            <el-menu-item index="/dashboard/checkout">
+              <el-icon class="mr-2 text-lg"><wallet /></el-icon>
+              <span>点餐结账管理</span>
+            </el-menu-item>
+                        
             <!-- 菜品管理 -->
             <el-menu-item index="/dashboard/menu">
               <el-icon class="mr-2 text-lg"><food /></el-icon>

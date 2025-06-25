@@ -1,1 +1,1 @@
- 
+//这里参照./store/menu.js的格式，实现你的./api/checkout.js的各种方法 

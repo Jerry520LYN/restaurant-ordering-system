@@ -25,10 +25,10 @@
         </el-table>
         
         <el-dialog v-model="updateDialogVisible" title="更新顾客" width="500px">
-            <CustomerUpdateCard v-if="currentCustomer" :customer="currentCustomer" @update-success="handleUpdateSuccess" @close="updateDialogVisible = false" />
+            <CustomerUpdateCard v-if="currentCustomer" :customer="currentCustomer" @update-success="handleUpdateSuccess" @close="closeUpdateDialog" />
         </el-dialog>
         <el-dialog v-model="addVipCustomerDialogVisible" title="添加VIP顾客" width="500px">
-            <CustomerAddCard v-if="addVipCustomerDialogVisible" @add-success="handleAddSuccess" @close="addVipCustomerDialogVisible = false" />
+            <CustomerAddCard v-if="addVipCustomerDialogVisible" @add-success="handleAddSuccess" @close="closeAddDialog" />
         </el-dialog>
     </div>
 </template>
@@ -108,6 +108,13 @@ export default {
                 const id = String(customer.customerId);
                 return id.length === 9;
             });
+        },
+        closeUpdateDialog() {
+            this.updateDialogVisible = false;
+            this.currentCustomer = null;
+        },
+        closeAddDialog() {
+            this.addVipCustomerDialogVisible = false;
         }
     },
     

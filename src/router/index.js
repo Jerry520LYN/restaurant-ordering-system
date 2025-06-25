@@ -8,7 +8,7 @@ import CustomerView from '@/views/CustomerView.vue'
 import TableManagementView from '@/views/TableManagementView.vue'
 import OrderManagementView from '@/views/OrderManagementView.vue'
 import CallingNumberView from '@/views/CallingNumberView.vue'
-import CreateOrderView from '@/views/CreateOrderView.vue'
+import CheckoutView from '@/views/CheckoutView.vue'
 const routes = [
   
   {
@@ -60,9 +60,9 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
-        path: 'create-order',
-        name: 'create-order',
-        component: CreateOrderView,
+        path: 'checkout',
+        name: 'checkout',
+        component: CheckoutView,
         meta: { requiresAuth: true }
       }
     ]
