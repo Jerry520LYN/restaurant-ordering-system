@@ -16,6 +16,7 @@
                 <el-option label="已结账" value="已结账" />
                 <el-option label="未结账" value="未结账" />
             </el-select>
+            <el-button type="primary" @click="filterRevenue">筛选营收</el-button>
             <el-button type="primary" @click="filterOrders">筛选</el-button>
         </div>
         <el-table :data="orderList" style="width: 100%; margin-top: 1rem" stripe border>
@@ -33,17 +34,22 @@
         <el-dialog v-model="dialogVisible" title="订单详情" width="500px">
             <DetailedCard :order="order" @closeOrder="closeOrder" />
         </el-dialog>
+        <el-dialog v-model="revenueDialogVisible" title="营收详情" width="500px">
+            <RevenueCard :revenueList="revenueList" @close="closeRevenueCard"/>
+        </el-dialog>
     </div>
 
 </template>
 <script>
 import { useOrderStore } from '@/stores/order';
 import DetailedCard from './DetailedCard.vue';
+import RevenueCard from './RevenueCard.vue';
 import { ElMessage } from 'element-plus';
 export default {
     name: 'DetailedForm',
     components: {
-        DetailedCard
+        DetailedCard,
+        RevenueCard
     },
     data() {
         return {
@@ -51,7 +57,9 @@ export default {
             order: null,
             orderList: [],
             timeRange: [],
-            selectedStatus: ''
+            selectedStatus: '',
+            revenueList: [],
+            revenueDialogVisible: false
         }
     },
     methods: {
@@ -83,7 +91,7 @@ export default {
                 return;
             }
             const [startTime, endTime] = this.timeRange;
-            await useOrderStore().fetchOrdersByTimeAndStatus({
+            await useOrderStore().fetchOrdersByTime({
                 startTime,
                 endTime,
                 
@@ -104,6 +112,26 @@ export default {
             result = result.filter(order => order.status === this.selectedStatus);
         }
             this.orderList = result;
+        },
+        async filterRevenue() {
+
+            if (this.timeRange.length === 0) {
+                ElMessage.error('请选择时间范围');
+                return;
+            }
+            
+            const [startTime, endTime] = this.timeRange;
+            await useOrderStore().fetchRevenueByTime({
+                startTime,
+                endTime,
+            });
+            this.revenueList = useOrderStore().revenueList;
+            this.revenueDialogVisible = true;
+        },
+        async closeRevenueCard(){
+            this.revenueList=[];
+            this.revenueDialogVisible=false;
+
         }
     },
     mounted() {

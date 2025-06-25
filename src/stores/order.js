@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
-import { getOrderSummaryList, deleteOrderById, getOrderById, getOrderDetailById, getOrdersByTimeAndStatus } from '@/api/order';
+import { getOrderSummaryList, deleteOrderById, getOrderById, getOrderDetailById, getOrdersByTime, getRevenueByTime  } from '@/api/order';
 import { ElMessage } from 'element-plus';
 
 export const useOrderStore = defineStore('order', {
   state: () => ({
     summaryList: [],
+    revenueList: [],
     loading: false,
     error: null
   }),
@@ -43,10 +44,10 @@ export const useOrderStore = defineStore('order', {
       const response = await getOrderDetailById(orderId);
       return response;
     },
-    async fetchOrdersByTimeAndStatus({ startTime, endTime, status }) {
+    async fetchOrdersByTime({ startTime, endTime }) {
       this.loading = true;
       try {
-        const response = await getOrdersByTimeAndStatus(startTime, endTime, status);
+        const response = await getOrdersByTime(startTime, endTime);
         this.summaryList = response;
         this.error = null;
       } catch (err) {
@@ -56,5 +57,18 @@ export const useOrderStore = defineStore('order', {
         this.loading = false;
       }
     },
+    async fetchRevenueByTime({ startTime, endTime }) {
+      this.loading = true;
+      try {
+        const response = await getRevenueByTime(startTime, endTime);
+        this.revenueList = response;
+        this.error = null;
+      } catch (err) {
+        this.error = err.message || '获取营收失败';
+        ElMessage.error(this.error);
+      } finally {
+        this.loading = false;
+      }
+    }
   }
 });

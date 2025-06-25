@@ -69,7 +69,7 @@ const handleSubmit = async () => {
     const result = await authStore.login(form.value);
     if(result){
     ElMessage.success("登录成功");
-    router.push('/dashboard');
+    router.push('/dashboard/menu');
     }else{
       ElMessage.error("登录失败,请检查账号或者密码");
     }

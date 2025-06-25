@@ -31,11 +31,6 @@
             :collapse="isCollapsed"
             class="border-r-0"
           >
-            <!-- 首页 -->
-            <el-menu-item index="/dashboard">
-              <el-icon class="mr-2 text-lg"><home-filled /></el-icon>
-              <span>首页</span>
-            </el-menu-item>
             
             
             <el-menu-item index="/dashboard/orders">
@@ -99,7 +94,7 @@ const activeIndex = computed(() => {
 
 const handleDropdown = (command) => {
   if (command === 'logout') {
-    authStore.logout()
+    authStore.isAuthenticated = false;
     router.push('/login')
   } else if (command === 'profile') {
     router.push('/dashboard/profile')

@@ -12,10 +12,11 @@ import CheckoutView from '@/views/CheckoutView.vue'
 const routes = [
   
   {
-    path: '/',
+    path: '/login',
     name: 'login',
     component: LoginView,
-    meta: { layout: 'empty', requiresGuest: true }
+    meta: { layout: 'empty', requiresGuest: true },
+    alias:'/'
   },
   {
     path: '/register',
@@ -80,7 +81,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next('/login')
   } else if (to.meta.requiresGuest && authStore.isAuthenticated) {
-    next('/dashboard')
+    next('/dashboard/menu')
   } else {
     next()
   }

@@ -69,4 +69,30 @@ export async function getOrderDetails(orderId) {
   return response;
 }
 
+export async function getOrdersByTime(startTime, endTime) {
+  const authStore = useAuthStore();
+  const token = authStore.token;
+  const params = {
+    authenticity: token,
+    startTime,
+    endTime
+  }
+  const response = await instance.get('/checkout/orders-by-time', {
+    params
+  });
+  return response;
+}
 
+export async function getRevenueByTime(startTime, endTime) {
+  const authStore = useAuthStore();
+  const token = authStore.token;
+  const params = {
+    authenticity: token,
+    startTime,
+    endTime
+  }
+  const response = await instance.get('/checkout/revenue', {
+    params
+  });
+  return response;
+}
