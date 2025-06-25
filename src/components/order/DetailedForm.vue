@@ -93,17 +93,17 @@ export default {
             this.CorrectTime();
         },
         filterOrderStatus() {
-            //this.orderList = useOrderStore().summaryList;
-            if (this.selectedStatus === '已结账') {
-                this.orderList = this.orderList.filter(order => order.status === '已结账');
-            } else {
-                this.orderList = this.orderList.filter(order => order.status === '未结账');
-            }
-        //     let result = [...this.orderList];
-        //     if (this.selectedStatus) {
-        //     result = result.filter(order => order.status === this.selectedStatus);
-        // }
-        //     this.orderList = result;
+            this.orderList = useOrderStore().summaryList;
+            // if (this.selectedStatus === '已结账') {
+            //     this.orderList = this.orderList.filter(order => order.status === '已结账');
+            // } else {
+            //     this.orderList = this.orderList.filter(order => order.status === '未结账');
+            // }
+            let result = [...this.orderList];
+            if (this.selectedStatus) {
+            result = result.filter(order => order.status === this.selectedStatus);
+        }
+            this.orderList = result;
         }
     },
     mounted() {

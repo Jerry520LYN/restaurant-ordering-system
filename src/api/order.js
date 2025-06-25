@@ -56,34 +56,17 @@ export async function getOrderDetailById(orderId) {
   return response;
 }
 
-// 更新订单
-export async function updateOrder(orderData) {
+// 获取订单详情（菜品信息）
+export async function getOrderDetails(orderId) {
   const authStore = useAuthStore();
   const token = authStore.token;
   const params = {
-    authenticity: token,
-    orderId: orderData.orderId,
-    customerId: orderData.customerId,
-    tableId: orderData.tableId,
-    peopleCount: orderData.peopleCount,
-    dishes: orderData.dishes
-  };
-  const response = await instance.post('/orders/updateOrder', null, { params });
-  return response;
-}
-
-// Add this new API function
-export async function getOrdersByTimeAndStatus(startTime, endTime, status) {
-  const authStore = useAuthStore();
-  const token = authStore.token;
-  const params = {
-    authenticity: token,
-    startTime,
-    endTime,
-    status  // Add status parameter
-  };
-  const response = await instance.get('/checkout/orders-by-time', {
+    authenticity: token
+  }
+  const response = await instance.get(`/checkout/order-details/${orderId}`, {
     params
   });
   return response;
 }
+
+
